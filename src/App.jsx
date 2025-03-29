@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Userlayout from "./components/Layout/Userlayout";
 import Home from "./Pages/Home";
 import { Toaster } from "sonner";
+import Login from "./Pages/Login";
+import Register from "./Pages/Register";
 function App() {
   return (
     <>
@@ -11,6 +13,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Userlayout />}>
             <Route index element={<Home />}></Route>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
           </Route>
         </Routes>
       </BrowserRouter>
