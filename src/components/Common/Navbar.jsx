@@ -30,7 +30,7 @@ const Navbar = () => {
         {/* Menus */}
         <div className="space-x-5 hidden md:flex lg:flex ">
           <Link
-            to="#"
+            to="/collections/all"
             className="text-sm text-gray-700  hover:text-black font-medium uppercase"
           >
             Mens
