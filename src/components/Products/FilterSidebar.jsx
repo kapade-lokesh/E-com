@@ -41,7 +41,6 @@ const FilterSidebar = () => {
     Object.keys(newFilters).forEach((key) => {
       if (Array.isArray(newFilters[key])) {
         params.append(key, newFilters[key].join(","));
-        console.log(params);
       } else {
         params.append(key, newFilters[key]);
       }
@@ -49,6 +48,15 @@ const FilterSidebar = () => {
 
     setSearchParams(params);
     navigate(`?${params.toString()}`);
+  };
+
+  const handelPriceChange = (e) => {
+    console.log("price change called");
+    const newPrice = e.target.value;
+    setPriceRange([0, newPrice]);
+    const newFilters = { ...filters, minPrice: 0, maxPrice: newPrice };
+    setFilters(filters);
+    updateURLParams(newFilters);
   };
 
   const [priceRange, setPriceRange] = useState([0, 100]);
@@ -126,6 +134,7 @@ const FilterSidebar = () => {
                 type="radio"
                 name="category"
                 value={category}
+                checked={filters.category === category}
                 onChange={handleFilterChange}
                 className="mr-2 h-4 w-4  accent-blue-500 focus:ring-blue-400 border-gray-300"
               />
@@ -145,6 +154,7 @@ const FilterSidebar = () => {
                 type="radio"
                 name="gender"
                 value={gender}
+                checked={filters.gender === gender}
                 onChange={handleFilterChange}
                 className="mr-2 h-4 w-4  accent-blue-500 focus:ring-blue-400 border-gray-300"
               />
@@ -169,7 +179,9 @@ const FilterSidebar = () => {
                   backgroundColor: color.toLowerCase(),
                   filter: "brightness(0.8)",
                 }}
-                className="mr-2 cursor-pointer h-8 w-8 rounded-full border border-red-300"
+                className={`mr-2 cursor-pointer h-8 w-8 rounded-full border ${
+                  filters.color === color ? "border-3 border-blue-500" : ""
+                }`}
               ></button>
             );
           })}
@@ -187,6 +199,7 @@ const FilterSidebar = () => {
                 name="size"
                 value={size}
                 onChange={handleFilterChange}
+                checked={filters.size.includes(size)}
                 className="mr-2 h-4 w-4  accent-blue-500 focus:ring-blue-400 border-gray-300"
               />
               <span className="text-gray-700">{size}</span>
@@ -208,6 +221,7 @@ const FilterSidebar = () => {
                 type="checkbox"
                 name="material"
                 value={material}
+                checked={filters.material.includes(material)}
                 onChange={handleFilterChange}
                 className="mr-2 h-4 w-4  accent-blue-500 focus:ring-blue-400 border-gray-300"
               />
@@ -226,6 +240,7 @@ const FilterSidebar = () => {
                 type="checkbox"
                 value={brand}
                 onChange={handleFilterChange}
+                checked={filters.brand.includes(brand)}
                 name="brand"
                 className="mr-2 h-4 w-4  accent-blue-500 focus:ring-blue-400 border-gray-300"
               />
@@ -246,9 +261,9 @@ const FilterSidebar = () => {
           min={0}
           max={100}
           id=""
-          value={priceRange[0]}
-          onChange={handleFilterChange}
-          className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer "
+          value={priceRange[1]}
+          onChange={handelPriceChange}
+          className="w-full h-2 bg-gray-300 rounded-lg text-blue-500 appearance-none cursor-pointer "
         />
 
         <div className="flex justify-between text-gray-700 mt-2">
