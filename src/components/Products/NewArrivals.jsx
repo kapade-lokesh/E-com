@@ -230,7 +230,7 @@ const NewArrivals = () => {
               />
 
               <div className="backdrop-blur-md text-white bg-opacity-50 p-2 rounded-b-lg absolute right-0 left-0 bottom-0">
-                <Link to="#">
+                <Link to={`/product/${product._id}`}>
                   <h4 className="font-medium">{product.name}</h4>
                   <p className="mt-1">&#8377; {product.price}</p>
                 </Link>
