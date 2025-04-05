@@ -213,25 +213,61 @@ const Checkout = () => {
           </div>
 
           <div className="mt-6">
-            {!checkoutId ? (
-              <button
-                type="submit"
-                className="w-full bg-black text-white py-2 rounded"
-              >
-                continue to payment
-              </button>
-            ) : (
-              <div>
-                <h3 className="text-lg mb-4">Pay With Paypal</h3>
-                <PaypalButton
-                  amount={100}
-                  onSuccess={handlePaymentSuccess}
-                  onError={(err) => alert("payment failed. try agian..")}
-                />
-              </div>
-            )}
+            <button
+              type="submit"
+              className="w-full bg-black text-white py-2 rounded"
+              onClick={handlePaymentSuccess}
+            >
+              continue to payment
+            </button>
           </div>
         </form>
+      </div>
+
+      {/* Right Section */}
+
+      <div className="bg-gray-50  p-6 rounded-lg ">
+        <h3 className="text-lg mb-4">Order Summary</h3>
+
+        <div className="border-t py-4 mb-4">
+          {cartProducts.products.map((product, index) => {
+            return (
+              <div className="flex items-start justify-between py-2 border-b">
+                <div className="flex items-start">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-20 h-24 object-cover mr-4"
+                  />
+                </div>
+
+                <div>
+                  <h3 className="text-md">{product.name}</h3>
+                  <p className="text-gray-500">Size:{product.size}</p>
+                  <p className="text-gray-500">Color:{product.color}</p>
+                </div>
+
+                <p className="text-xl">
+                  &#8377; {product.price.toLocaleString()}
+                </p>
+              </div>
+            );
+          })}
+
+          <div className="flex justify-between items-center text-lg mb-4">
+            <p>Subtotal</p>
+            <p>&#8377;{cartProducts?.totalPrice?.toLocaleString()}</p>
+          </div>
+
+          <div className="flex justify-between items-center text-lg">
+            <p>shipping</p>
+            <p>free</p>
+          </div>
+          <div className="flex justify-between items-center text-lg mt-4 border-t pt-4">
+            <p>Total price</p>
+            <p>&#8377;{cartProducts?.totalPrice?.toLocaleString()}</p>
+          </div>
+        </div>
       </div>
     </div>
   );

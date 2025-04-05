@@ -61,7 +61,7 @@ const Navbar = () => {
         {/* nav-icons */}
 
         <div className="flex items-center space-x-3">
-          <Link to="#" className="text-gray-700  hover:text-black">
+          <Link to="/profile" className="text-gray-700  hover:text-black">
             <HiOutlineUser className="h-5 w-5" />
           </Link>
 
