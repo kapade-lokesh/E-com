@@ -10,6 +10,8 @@ import Collection from "./Pages/Collection";
 import ProductDetails from "./components/Products/ProductDetails";
 import Checkout from "./components/Cart/Checkout";
 import OrderConformation from "./Pages/OrderConformation";
+import OrderDetails from "./Pages/OrderDetails";
+import MyOrders from "./Pages/MyOrders";
 function App() {
   return (
     <>
@@ -25,6 +27,9 @@ function App() {
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/order-confirmation" element={<OrderConformation />} />
+            <Route path="/order/:id" element={<OrderDetails />} />
+            <Route path="/my-orders" element={<MyOrders />} />
+            <Route path="*" element={<h1>404 Not Found</h1>} />
           </Route>
         </Routes>
       </BrowserRouter>

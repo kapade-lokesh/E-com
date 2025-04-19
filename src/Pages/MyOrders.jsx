@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 const MyOrders = () => {
   const [orders, setOrders] = useState([]);
 
+  const navigate = useNavigate();
+
+  const handelrowClick = (id) => () => {
+    // navigate to order details page
+    navigate(`/order/${id}`);
+  };
   useEffect(() => {
     setTimeout(() => {
       //simulate the fetch orders
@@ -93,6 +99,7 @@ const MyOrders = () => {
                   <tr
                     key={order._id}
                     className="border-b hover:border-gray-50 cursor-pointer"
+                    onClick={handelrowClick(order._id)}
                   >
                     <td className="">
                       <img
