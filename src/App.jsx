@@ -12,6 +12,10 @@ import Checkout from "./components/Cart/Checkout";
 import OrderConformation from "./Pages/OrderConformation";
 import OrderDetails from "./Pages/OrderDetails";
 import MyOrders from "./Pages/MyOrders";
+import AdminLayout from "./components/Admin/AdminLayout";
+import AdminHomePage from "./Pages/AdminHomePage";
+import UserManage from "./components/Admin/UserManage";
+import NotFound from "./Pages/NotFound";
 function App() {
   return (
     <>
@@ -29,8 +33,14 @@ function App() {
             <Route path="/order-confirmation" element={<OrderConformation />} />
             <Route path="/order/:id" element={<OrderDetails />} />
             <Route path="/my-orders" element={<MyOrders />} />
-            <Route path="*" element={<h1>404 Not Found</h1>} />
           </Route>
+
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminHomePage />} />
+            <Route path="users" element={<UserManage />} />
+          </Route>
+
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>
