@@ -3,7 +3,7 @@ import { HiOutlineUser, HiOutlineShoppingBag } from "react-icons/hi";
 import { HiBars3BottomRight, HiMiniXMark } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 import Searchbar from "./Searchbar";
-import CartDrawer from "../Layout/cartDrawer";
+import { CartDrawer } from "../Layout";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);

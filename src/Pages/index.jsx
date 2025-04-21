@@ -1,0 +1,10 @@
+export {default as AdminHomePage} from "./AdminHomePage.jsx";
+export {default as NotFound} from "./NotFound.jsx";
+export {default as OrderDetails} from "./OrderDetails.jsx";
+export {default as OrderConformation} from "./OrderConformation.jsx";
+export {default as MyOrders} from "./MyOrders.jsx"; 
+export {default as Profile} from "./Profile.jsx";
+export {default as Register} from "./Register.jsx";
+export {default as Login} from "./Login.jsx";
+export {default as Collection} from "./Collection.jsx";
+export {default as Home} from "./Home.jsx";

@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "../Common/Header";
-import Footer from "../Common/Footer";
+import { Header } from "../Common";
+import { Footer } from "../Common";
 import { Outlet } from "react-router-dom";
 
 const Userlayout = () => {

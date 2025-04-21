@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { HiMiniXMark } from "react-icons/hi2";
-import Cartcontent from "../Cart/Cartcontent";
+import {Cartcontent} from "../Cart";
 import { useNavigate } from "react-router-dom";
 
 const CartDrawer = ({ toggelCartDrawer, isOpen }) => {

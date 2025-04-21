@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { HiMagnifyingGlass, HiMiniXMark } from "react-icons/hi2";
-import { SiEthers } from "react-icons/si";
+ 
 
 const Searchbar = () => {
   const [searchTerm, setSearchTerm] = useState("");

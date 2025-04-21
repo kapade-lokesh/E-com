@@ -1,12 +1,13 @@
 import React from "react";
-import Hero from "../components/Layout/Hero";
-import Gendercollection from "../components/Products/Gendercollection";
-import NewArrivals from "../components/Products/NewArrivals";
-import ProductDetails from "../components/Products/ProductDetails";
-import ProductGrid from "../components/Products/ProductGrid";
-import FeaturedCollection from "../components/Products/FeaturedCollection";
-import FeatureSection from "../components/Products/FeatureSection";
-
+import { Hero } from "../components/Layout";
+import {
+  ProductDetails,
+  ProductGrid,
+  Gendercollection,
+  FeatureSection,
+  NewArrivals,
+  FeaturedCollection,
+} from "../components/Products";
 const sampleProducts = [
   {
     _id: 1,

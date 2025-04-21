@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaFilter } from "react-icons/fa";
-import FilterSidebar from "../components/Products/FilterSidebar";
-import Sortoptions from "../components/Products/Sortoptions";
-import ProductGrid from "../components/Products/ProductGrid";
+import {
+  FilterSidebar,
+  Sortoptions,
+  ProductGrid,
+} from "../components/Products";
+
 const Collection = () => {
   const [products, setproducts] = useState([]);
   const [isSidebarOpen, setSideBarOpen] = useState(false);

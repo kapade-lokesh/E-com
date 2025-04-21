@@ -1,24 +1,30 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Userlayout from "./components/Layout/Userlayout";
-import Home from "./Pages/Home";
 import { Toaster } from "sonner";
-import Login from "./Pages/Login";
-import Register from "./Pages/Register";
-import Profile from "./Pages/Profile";
-import Collection from "./Pages/Collection";
-import ProductDetails from "./components/Products/ProductDetails";
-import Checkout from "./components/Cart/Checkout";
-import OrderConformation from "./Pages/OrderConformation";
-import OrderDetails from "./Pages/OrderDetails";
-import MyOrders from "./Pages/MyOrders";
-import AdminLayout from "./components/Admin/AdminLayout";
-import AdminHomePage from "./Pages/AdminHomePage";
-import UserManage from "./components/Admin/UserManage";
-import NotFound from "./Pages/NotFound";
-import ProductManagement from "./components/Admin/ProductManagement";
-import EditProduct from "./components/Admin/EditProduct";
-import OrderManagement from "./components/Admin/OrderManagement";
+import { Userlayout } from "./components/Layout";
+import { ProductDetails } from "./components/Products";
+import { Checkout } from "./components/Cart";
+import {
+  Home,
+  Login,
+  Register,
+  Profile,
+  Collection,
+  OrderConformation,
+  OrderDetails,
+  AdminHomePage,
+  MyOrders,
+  NotFound,
+} from "./Pages";
+
+import {
+  AdminLayout,
+  OrderManagement,
+  UserManage,
+  ProductManagement,
+  EditProduct,
+} from "./components/Admin";
+
 function App() {
   return (
     <>
