@@ -11,7 +11,7 @@ const Hero = () => {
           className="w-full h-[400px] md:h-[600px] lg:h-[750px] object-cover"
         />
 
-        <div className="absolute top-[200px] inset-0   flex justify-center items-center">
+        <div className="absolute top-[10px] sm:top-[400px] inset-0   flex justify-center items-center">
           <div className="p-6 text-center">
             <h1 className="uppercase text-center treking-tighter  text-4xl md:text-8xl text-white font-bold">
               vacation <br />

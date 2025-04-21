@@ -47,7 +47,7 @@ const AdminSidebar = () => {
         </NavLink>
 
         <NavLink
-          to="admin/orders"
+          to="/admin/orders"
           className={`${(isActive) =>
             isActive
               ? "bg-gray-700 text-white  rounded"
