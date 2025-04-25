@@ -6,7 +6,7 @@ import { TbBrandMeta } from "react-icons/tb";
 const Topbar = () => {
   return (
     <React.Fragment>
-      <div className="bg-red-600 text-white">
+      <div className="bg-indigo-500 text-white">
         <div className="container mx-auto flex items-center justify-between p-1">
           <div className="hidden md:flex  items-center space-x-4">
             <a href="">

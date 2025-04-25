@@ -87,6 +87,7 @@ const Navbar = () => {
           </button>
         </div>
 
+        {/* cart drawer  */}
         <CartDrawer isOpen={isOpen} toggelCartDrawer={toggelCartDrawer} />
 
         {/* mobile navigation */}
