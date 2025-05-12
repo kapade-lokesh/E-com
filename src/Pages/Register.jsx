@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import register from "../assets/register.webp";
-
+import { useDispatch } from "react-redux";
+import { registerUser } from "../redux/Slices/authSlice";
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("user:", { name, email, password });
+    dispatch(registerUser({ name, email, password }));
   };
 
   return (
@@ -28,7 +32,7 @@ const Register = () => {
 
           <div className="mb-4">
             <label htmlFor="" className="block text-sm font-semibold mb-2">
-              Email
+              Name
             </label>
             <input
               type="text"
