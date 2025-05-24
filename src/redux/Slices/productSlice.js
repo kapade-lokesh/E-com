@@ -32,7 +32,7 @@ export const fetchProductDetails = createAsyncThunk(
 );
 
 export const updateProduct = createAsyncThunk(
-  "products/fetchProductDetails",
+  "products/updateProduct",
   async (id, productData) => {
     const response = await axios.put(
       `${import.meta.env.VITE_BACKEND_URL}products/update/${id}`,

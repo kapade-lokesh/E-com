@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import axios from "axios";
+import React, { use, useEffect, useRef, useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
@@ -10,105 +11,22 @@ const NewArrivals = () => {
   const [canScrollLeft, setcanScrollLeft] = useState(false);
   const [canScrollRight, setcanScrollRight] = useState(true);
 
-  const Arrivals = [
-    {
-      _id: 1,
-      name: "Stylish Jacket",
-      price: 230,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=1",
-          altText: "stylish-jacket",
-        },
-      ],
-    },
+  const [Arrivals, setArrivals] = useState([]);
 
-    {
-      _id: 2,
-      name: "Stylish Jacket",
-      price: 230,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=2",
-          altText: "stylish-jacket",
-        },
-      ],
-    },
+  useEffect(() => {
+    const fetchArrivals = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}products/getnewarrivals`
+        );
+        setArrivals(response.data.products);
+      } catch (error) {
+        console.error("Error fetching arrivals:", error);
+      }
+    };
 
-    {
-      _id: 3,
-      name: "Stylish Jacket",
-      price: 230,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=3",
-          altText: "stylish-jacket",
-        },
-      ],
-    },
-
-    {
-      _id: 4,
-      name: "Stylish Jacket",
-      price: 230,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=4",
-          altText: "stylish-jacket",
-        },
-      ],
-    },
-
-    {
-      _id: 5,
-      name: "Stylish Jacket",
-      price: 230,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=5",
-          altText: "stylish-jacket",
-        },
-      ],
-    },
-
-    {
-      _id: 6,
-      name: "Stylish Jacket",
-      price: 230,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=6",
-          altText: "stylish-jacket",
-        },
-      ],
-    },
-
-    {
-      _id: 7,
-      name: "Stylish Jacket",
-      price: 230,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=7",
-          altText: "stylish-jacket",
-        },
-      ],
-    },
-
-    {
-      _id: 8,
-      name: "Stylish Jacket",
-      price: 230,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=8",
-          altText: "stylish-jacket",
-        },
-      ],
-    },
-  ];
-
-  // logic for the scroling od a caroal
+    fetchArrivals();
+  }, []);
 
   const scroll = (direction) => {
     const scrollAmount = direction === "left" ? -300 : 300;
