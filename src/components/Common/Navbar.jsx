@@ -30,31 +30,31 @@ const Navbar = () => {
         {/* Menus */}
         <div className="space-x-5 hidden md:flex lg:flex ">
           <Link
-            to="/collections/all"
+            to="/collections/all?gender=Men"
             className="text-sm text-gray-700  hover:text-black font-medium uppercase"
           >
             Mens
           </Link>
 
           <Link
-            to="#"
+            to="/collections/all?gender=Women"
             className="text-sm text-gray-700  hover:text-black font-medium uppercase"
           >
             womens
           </Link>
 
           <Link
-            to="#"
+            to="/collections/all?category=Top Wear"
             className="text-sm text-gray-700  hover:text-black font-medium uppercase"
           >
-            kids
+            Top Wear
           </Link>
 
           <Link
-            to="#"
+            to="/collections/all?category=Bottom Wear"
             className="text-sm text-gray-700  hover:text-black font-medium uppercase"
           >
-            boys
+            Bottom Wear
           </Link>
         </div>
 
@@ -106,7 +106,7 @@ const Navbar = () => {
             <h2 className="text-xl font-semibold mb-4">Menu</h2>
             <nav className="space-y-4">
               <Link
-                to="#"
+                to="/collections/all?gender=Men"
                 onClick={toggleMobileDrawer}
                 className="block text-gray-500 hover:text-black"
               >
@@ -114,7 +114,7 @@ const Navbar = () => {
               </Link>
 
               <Link
-                to="#"
+                to="/collections/all?gender=Women"
                 onClick={toggleMobileDrawer}
                 className="block text-gray-500 hover:text-black"
               >
@@ -122,7 +122,7 @@ const Navbar = () => {
               </Link>
 
               <Link
-                to="#"
+                to="/collections/all?category=Top Wear"
                 onClick={toggleMobileDrawer}
                 className="block text-gray-500 hover:text-black"
               >
@@ -130,7 +130,7 @@ const Navbar = () => {
               </Link>
 
               <Link
-                to="#"
+                to="/collections/all?category=Bottom Wear"
                 onClick={toggleMobileDrawer}
                 className="block text-gray-500 hover:text-black"
               >

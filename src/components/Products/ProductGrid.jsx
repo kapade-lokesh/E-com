@@ -6,6 +6,10 @@ const ProductGrid = ({ filterproducts, loading, error }) => {
     return <p className="text-center">Loading...</p>;
   }
 
+  if (error) {
+    return <p className="text-center">{error}</p>;
+  }
+
   if (!filterproducts || filterproducts.length === 0) {
     return <p className="text-center">No products found</p>;
   }

@@ -23,7 +23,7 @@ const FilterSidebar = () => {
     if (type === "checkbox") {
       if (checked) {
         newFilters[name] = [...newFilters[name], value];
-        console.log();
+       
       } else {
         newFilters[name] = newFilters[name].filter((item) => item !== value);
       }
