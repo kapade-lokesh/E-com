@@ -84,7 +84,7 @@ const NewArrivals = () => {
     }
     updateScrollButtons();
     return () => container.removeEventListener("scroll", updateScrollButtons);
-  }, []);
+  }, [Arrivals]);
 
   return (
     <section className="relative">

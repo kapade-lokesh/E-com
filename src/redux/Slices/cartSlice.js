@@ -3,11 +3,14 @@ import axios from "axios";
 
 //helper function
 const loadCartFromStorage = () => {
-  const storedCart = localStorage.getItem("cart");
+  const storedCart = localStorage.getItem("cart")
+    ? localStorage.getItem("cart")
+    : "";
   return storedCart ? JSON.parse(storedCart) : { products: [] };
 };
 
 const saveCartToStorage = (cart) => {
+  if (cart === undefined || cart === null) return;
   localStorage.setItem("cart", JSON.stringify(cart));
 };
 
@@ -15,7 +18,7 @@ export const fetchCart = createAsyncThunk(
   "cart/fetchCart",
   async (userId, guestId, { rejectWithValue }) => {
     try {
-      const response = axios.get(
+      const response = await axios.get(
         `${import.meta.env.VITE_BACKEND_URL}cart/getcart?${userId || guestId}`
       );
       return response.data;
@@ -28,11 +31,13 @@ export const fetchCart = createAsyncThunk(
 export const addToCart = createAsyncThunk(
   "cart/addToCart",
   async ({ productId, size, quantity, color }, { rejectWithValue }) => {
+    console.log("add to cart api is calling", color);
     try {
-      const response = axios.post(
+      const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}cart/create`,
         { productId, size, quantity, color }
       );
+      console.log(response.data);
       return response.data;
     } catch (error) {
       rejectWithValue(error.response.message);
@@ -47,7 +52,7 @@ export const updateCartItemQuantity = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const response = axios.put(
+      const response = await axios.put(
         `${import.meta.env.VITE_BACKEND_URL}cart/updatecart`,
         { userId, guestId, productId, size, quantity, color }
       );
@@ -65,7 +70,7 @@ export const removeFromCart = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const response = axios.delete(
+      const response = await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}cart/deleteCart`,
         { userId, guestId, productId, size, quantity, color }
       );
@@ -80,7 +85,7 @@ export const mergCart = createAsyncThunk(
   "cart/mergCart",
   async ({ userId, guestId }, { rejectWithValue }) => {
     try {
-      const response = axios.post(
+      const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}cart/mergeCart`,
         { userId, guestId },
         {
@@ -125,8 +130,8 @@ const carSlice = createSlice({
         (state.loading = true), (state.error = null);
       })
       .addCase(addToCart.fulfilled, (state, action) => {
-        (state.loading = false), (state.cart = action.payload);
-        saveCartToStorage(action.payload);
+        (state.loading = false), (state.cart = action.payload.newcart);
+        saveCartToStorage(action.payload.newcart);
       })
       .addCase(addToCart.rejected, (state, action) => {
         (state.loading = true), (state.error = action.payload.message);

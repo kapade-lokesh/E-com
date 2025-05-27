@@ -4,20 +4,25 @@ import axios from "axios";
 export const fetchProductsByFilter = createAsyncThunk(
   "products/fetchProductsByFilter",
   async (params) => {
-    const query = new URLSearchParams();
+    try {
+      const query = new URLSearchParams();
 
-    for ([Key, value] of Object.entries(params)) {
-      if (value !== undefined && value !== null && value !== "") {
-        query.append(key, value);
+      for (var [Key, value] of Object.entries(params)) {
+        if (value !== undefined && value !== null && value !== "") {
+          query.append(Key, value);
+        }
       }
-    }
 
-    const response = await axios.get(
-      `${
-        import.meta.env.VITE_BACKEND_URL
-      }products/getfilterproducts/${query.toString()}`
-    );
-    return response.data;
+      const response = await axios.get(
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }products/getfilterproducts?${query.toString()}`
+      );
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 );
 
@@ -51,7 +56,9 @@ export const fetchSimilerProducts = createAsyncThunk(
   "products/fetchSimilerProducts",
   async (id) => {
     const response = await axios.get(
-      `${import.meta.env.VITE_BACKEND_URL}products/getsimilerproducts/${id}`
+      `${
+        import.meta.env.VITE_BACKEND_URL
+      }products/getsimilerproducts/${id}?limit=8`
     );
     return response.data;
   }
@@ -62,7 +69,7 @@ const productSlice = createSlice({
   initialState: {
     products: [],
     selectedProducts: null,
-    similerProducts: [],
+    similarProducts: [],
     loading: false,
     error: null,
     filters: {
@@ -111,19 +118,21 @@ const productSlice = createSlice({
       })
       .addCase(fetchProductsByFilter.fulfilled, (state, action) => {
         (state.loading = false),
-          (state.products = Array.isArray(action.payload)
-            ? action.payload
+          (state.products = Array.isArray(action.payload.products)
+            ? action.payload.products
             : []);
       })
       .addCase(fetchProductsByFilter.rejected, (state, action) => {
-        (state.loading = false), (state.error = action.payload.message);
+        (state.loading = false), (state.error = action.payload);
       })
 
       .addCase(fetchProductDetails.pending, (state, action) => {
         (state.loading = true), (state.error = null);
       })
       .addCase(fetchProductDetails.fulfilled, (state, action) => {
-        (state.loading = false), (state.products = action.payload);
+        console.log("callig api");
+        state.loading = false;
+        state.selectedProducts = action.payload.product;
       })
       .addCase(fetchProductDetails.rejected, (state, action) => {
         (state.loading = false), (state.error = action.payload.message);
@@ -135,11 +144,11 @@ const productSlice = createSlice({
         state.loading = false;
         const updatedProduct = action.payload;
         const index = state.products.findIndex(
-          (product) => product._id === updateProduct._id
+          (product) => product._id === updatedProduct._id
         );
 
         if (index != -1) {
-          state.products[index] = updateProduct;
+          state.products[index] = updatedProduct;
         }
       })
       .addCase(updateProduct.rejected, (state, action) => {
@@ -151,7 +160,7 @@ const productSlice = createSlice({
       .addCase(fetchSimilerProducts.fulfilled, (state, action) => {
         state.loading = false;
 
-        state.similerProducts = action.payload;
+        state.similarProducts = action.payload.similerProducts;
       })
       .addCase(fetchSimilerProducts.rejected, (state, action) => {
         (state.loading = false), (state.error = action.payload.message);
