@@ -4,11 +4,14 @@ import { HiBars3BottomRight, HiMiniXMark } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 import Searchbar from "./Searchbar";
 import { CartDrawer } from "../Layout";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const [mobileDrawer, setMobileDrawer] = useState(false);
+
+  const { itemsCount } = useSelector((state) => state.cart);
 
   const toggelCartDrawer = () => {
     setIsOpen(!isOpen);
@@ -75,7 +78,7 @@ const Navbar = () => {
           <button className="relative" onClick={toggelCartDrawer}>
             <HiOutlineShoppingBag className="h-5 w-5 text-gray-600 hover:text-black" />
             <span className="absolute -top-2.5 text-xs w-4 h-4 bg-red-500 rounded-full text-white">
-              4
+              {itemsCount}
             </span>
           </button>
 

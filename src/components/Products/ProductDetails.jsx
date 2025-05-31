@@ -80,9 +80,8 @@ const ProductDetails = ({ productId }) => {
     (state) => state.product
   );
 
-   
-
   const { user, guestId } = useSelector((state) => state.auth);
+  console.log(guestId);
 
   const selectedProductId = id || productId;
 

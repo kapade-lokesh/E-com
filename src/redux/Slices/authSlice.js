@@ -6,7 +6,7 @@ const userFromStorage = localStorage.getItem("user")
   : null;
 
 const initialGuestId =
-  localStorage.getItem("guestId") || `guest_${new Date().getTime()}`;
+  localStorage.getItem("guestId") || `guest${new Date().getTime()}`;
 localStorage.setItem("guestId", initialGuestId);
 
 const initialState = {
@@ -60,7 +60,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     logout: (state, action) => {
-      (state.user = null), (state.guestId = `guest_${new Date().getTime()}`);
+      (state.user = null), (state.guestId = `guest${new Date().getTime()}`);
 
       localStorage.removeItem("user");
       localStorage.removeItem("authToken");

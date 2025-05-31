@@ -18,6 +18,10 @@ const store = configureStore({
     adminProductSlice: adminProductReducers,
     adminOrderSlice: adminOrderReducers,
   },
+   devTools: {
+    trace: true,
+    traceLimit: 25,
+  },
 });
 
 export default store;

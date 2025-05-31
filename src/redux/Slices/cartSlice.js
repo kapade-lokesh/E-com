@@ -9,8 +9,13 @@ const loadCartFromStorage = () => {
   return storedCart ? JSON.parse(storedCart) : { products: [] };
 };
 
+const getCartItemCount = () => {
+  return JSON.parse(localStorage.getItem("cart"))?.products?.lenght || 0;
+};
+
 const saveCartToStorage = (cart) => {
   if (cart === undefined || cart === null) return;
+  console.log(cart);
   localStorage.setItem("cart", JSON.stringify(cart));
 };
 
@@ -30,16 +35,19 @@ export const fetchCart = createAsyncThunk(
 
 export const addToCart = createAsyncThunk(
   "cart/addToCart",
-  async ({ productId, size, quantity, color }, { rejectWithValue }) => {
-    console.log("add to cart api is calling", color);
+  async (
+    { productId, size, quantity, color, userId, guestId },
+    { rejectWithValue }
+  ) => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}cart/create`,
-        { productId, size, quantity, color }
+        { productId, size, quantity, color, userId, guestId }
       );
       console.log(response.data);
       return response.data;
     } catch (error) {
+      console.log(error);
       rejectWithValue(error.response.message);
     }
   }
@@ -56,6 +64,7 @@ export const updateCartItemQuantity = createAsyncThunk(
         `${import.meta.env.VITE_BACKEND_URL}cart/updatecart`,
         { userId, guestId, productId, size, quantity, color }
       );
+      console.log(response);
       return response.data;
     } catch (error) {
       rejectWithValue(error.response.message);
@@ -69,10 +78,11 @@ export const removeFromCart = createAsyncThunk(
     { userId, guestId, productId, size, quantity, color },
     { rejectWithValue }
   ) => {
+    console.log({ userId, guestId, productId, size, quantity, color });
     try {
       const response = await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}cart/deleteCart`,
-        { userId, guestId, productId, size, quantity, color }
+        { data: { userId, guestId, productId, size, quantity, color } }
       );
       return response.data;
     } catch (error) {
@@ -107,6 +117,7 @@ const carSlice = createSlice({
     cart: loadCartFromStorage(),
     loading: false,
     error: null,
+    itemsCount: getCartItemCount(),
   },
   reducers: {
     clearCart: (state, action) => {
@@ -130,7 +141,9 @@ const carSlice = createSlice({
         (state.loading = true), (state.error = null);
       })
       .addCase(addToCart.fulfilled, (state, action) => {
-        (state.loading = false), (state.cart = action.payload.newcart);
+        state.loading = false;
+        state.cart = action.payload.newcart;
+        console.log(action.payload.newcart);
         saveCartToStorage(action.payload.newcart);
       })
       .addCase(addToCart.rejected, (state, action) => {
@@ -140,7 +153,10 @@ const carSlice = createSlice({
         (state.loading = true), (state.error = null);
       })
       .addCase(updateCartItemQuantity.fulfilled, (state, action) => {
-        (state.loading = false), (state.cart = action.payload);
+        console.log("update calling");
+        state.loading = false;
+        state.cart = action.payload;
+        console.log(action.payload);
         saveCartToStorage(action.payload);
       })
       .addCase(updateCartItemQuantity.rejected, (state, action) => {
@@ -150,7 +166,10 @@ const carSlice = createSlice({
         (state.loading = true), (state.error = null);
       })
       .addCase(removeFromCart.fulfilled, (state, action) => {
-        (state.loading = false), (state.cart = action.payload);
+        console.log("calling remove Cart");
+        state.loading = false;
+        state.cart = action.payload.cart;
+        console.log(action.payload);
         saveCartToStorage(action.payload);
       })
       .addCase(removeFromCart.rejected, (state, action) => {
