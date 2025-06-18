@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
- 
+
 const cartProducts = {
   products: [
     {
@@ -34,6 +35,14 @@ const Checkout = () => {
     phone: "",
   });
   const navigate = useNavigate();
+
+  const { cart, loading, error } = useSelector((state) => state.cart);
+  const { user } = useSelector((state) => state.auth);
+
+
+  useEffect(()=>{
+    if(!cart || !cart.products)
+  })
 
   const handleCheckOut = (e) => {
     e.preventDefault();

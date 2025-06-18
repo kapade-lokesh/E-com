@@ -10,7 +10,14 @@ const loadCartFromStorage = () => {
 };
 
 const getCartItemCount = () => {
-  return JSON.parse(localStorage.getItem("cart"))?.products?.lenght || 0;
+  console.log("calling count items reducer");
+  console.log(
+    "cart",
+    JSON.parse(localStorage.getItem("cart"))?.products?.length
+  );
+  return JSON.parse(localStorage.getItem("cart"))
+    ? JSON.parse(localStorage.getItem("cart")).products.length
+    : 0;
 };
 
 const saveCartToStorage = (cart) => {
@@ -117,7 +124,7 @@ const carSlice = createSlice({
     cart: loadCartFromStorage(),
     loading: false,
     error: null,
-    itemsCount: getCartItemCount(),
+    itemsCount: getCartItemCount() || 0,
   },
   reducers: {
     clearCart: (state, action) => {
@@ -143,8 +150,10 @@ const carSlice = createSlice({
       .addCase(addToCart.fulfilled, (state, action) => {
         state.loading = false;
         state.cart = action.payload.newcart;
-        console.log(action.payload.newcart);
+        console.log(state.itemsCount);
+        state.itemsCount = state.cart.products.length;
         saveCartToStorage(action.payload.newcart);
+        getCartItemCount();
       })
       .addCase(addToCart.rejected, (state, action) => {
         (state.loading = true), (state.error = action.payload.message);
@@ -156,8 +165,10 @@ const carSlice = createSlice({
         console.log("update calling");
         state.loading = false;
         state.cart = action.payload;
-        console.log(action.payload);
+        console.log("update cart", state.cart);
+        state.itemsCount = state.cart.products.length;
         saveCartToStorage(action.payload);
+        getCartItemCount();
       })
       .addCase(updateCartItemQuantity.rejected, (state, action) => {
         (state.loading = true), (state.error = action.payload.message);
@@ -169,8 +180,9 @@ const carSlice = createSlice({
         console.log("calling remove Cart");
         state.loading = false;
         state.cart = action.payload.cart;
-        console.log(action.payload);
-        saveCartToStorage(action.payload);
+        console.log(state.cart);
+        state.itemsCount = state.cart.products.length;
+        saveCartToStorage(action.payload.cart);
       })
       .addCase(removeFromCart.rejected, (state, action) => {
         (state.loading = true), (state.error = action.payload.message);

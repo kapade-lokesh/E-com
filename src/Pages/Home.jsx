@@ -14,8 +14,6 @@ import {
 import { useDispatch } from "react-redux";
 import { fetchProductsByFilter } from "../redux/Slices/productSlice";
 
- 
-
 const Home = () => {
   const dispatch = useDispatch();
 
@@ -23,7 +21,6 @@ const Home = () => {
   const [bestSellers, setBestSellers] = useState([]);
 
   useEffect(() => {
-    console.log("Fetching products by filter");
     dispatch(
       fetchProductsByFilter({
         gender: "Women",

@@ -1,6 +1,6 @@
 import React from "react";
 import { RiDeleteBin2Line } from "react-icons/ri";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   removeFromCart,
   updateCartItemQuantity,
@@ -8,7 +8,6 @@ import {
 
 const Cartcontent = ({ userId, guestId, cart }) => {
   const dispatch = useDispatch();
-  const { cart } = useSelector((state) => state.cart);
   const handleAddToCart = (productId, delta, quantity, size, color) => {
     const newQuantity = quantity + delta;
     if (newQuantity >= 1) {

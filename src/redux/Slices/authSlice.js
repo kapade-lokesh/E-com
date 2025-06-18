@@ -27,9 +27,11 @@ export const loginUser = createAsyncThunk(
       console.log(response.user);
       localStorage.setItem("user", JSON.stringify(response.data.user));
       localStorage.setItem("authToken", JSON.stringify(response.data.token));
+      return response.data.user;
     } catch (error) {
       console.log(error);
-      return rejectWithValue(error.response.message);
+      console.log(error.message);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -48,6 +50,7 @@ export const registerUser = createAsyncThunk(
         "authToken",
         JSON.stringify(response.data.token) || ""
       );
+      return response.data.user;
     } catch (error) {
       console.log(error);
       return rejectWithValue(error.response.message);
@@ -64,12 +67,12 @@ const authSlice = createSlice({
 
       localStorage.removeItem("user");
       localStorage.removeItem("authToken");
-      localStorage.setItem(guestId, state.guestId);
+      localStorage.setItem("guestId", state.guestId);
       state.loading = false;
     },
     generateGuestId: (state, action) => {
       state.guestId = `guest_${new Date().getTime()}`;
-      localStorage.setItem(guestId, state.guestId);
+      localStorage.setItem("guestId", state.guestId);
       state.loading = false;
     },
   },
@@ -77,23 +80,32 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state, action) => {
-        (state.loading = true), (state.error = false);
+        state.loading = true;
+        state.error = false;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        (state.loading = false), (state.error = action.payload);
+        console.log("user login ", action.payload);
+        state.loading = false;
+        state.user = action.payload;
+        state.error = action.payload;
       })
       .addCase(loginUser.rejected, (state, action) => {
-        (state.loading = true), (state.error = action.payload.message);
+        console.log(action.payload);
+        state.loading = true;
+        state.error = action.payload;
       })
 
       .addCase(registerUser.pending, (state, action) => {
-        (state.loading = true), (state.error = false);
+        state.loading = true;
+        state.error = false;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
-        (state.loading = false), (state.error = action.payload);
+        state.loading = false;
+        state.user = action.payload;
       })
       .addCase(registerUser.rejected, (state, action) => {
-        (state.loading = true), (state.error = action.payload.message);
+        state.loading = true;
+        state.error = action.payload.message;
       });
   },
 });

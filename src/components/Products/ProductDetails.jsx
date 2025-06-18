@@ -81,7 +81,7 @@ const ProductDetails = ({ productId }) => {
   );
 
   const { user, guestId } = useSelector((state) => state.auth);
-  console.log(guestId);
+  
 
   const selectedProductId = id || productId;
 
@@ -154,7 +154,6 @@ const ProductDetails = ({ productId }) => {
               {/* Left thunbnail */}
               <div className="hidden md:flex flex-col space-y-4 mr-6">
                 {selectedProducts.images.map((image, index) => {
-                  console.log(index);
                   return (
                     <img
                       key={index}
