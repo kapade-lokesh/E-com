@@ -41,7 +41,7 @@ const Checkout = () => {
 
 
   useEffect(()=>{
-    if(!cart || !cart.products)
+    if(!cart || !cart.products){}
   })
 
   const handleCheckOut = (e) => {
