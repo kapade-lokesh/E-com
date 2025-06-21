@@ -11,62 +11,6 @@ import {
 
 import { addToCart } from "../../redux/Slices/cartSlice";
 
-// const selectedProducts = {
-//   name: "stylish jacket",
-//   price: 120,
-//   originalPrice: 150,
-//   description: "This is the stylish jacket perfect for any occation",
-//   brand: "FashionBrand",
-//   material: "Leather",
-//   sizes: ["S", "L", "M", "XL"],
-//   colors: ["Red", "Black"],
-//   images: [
-//     {
-//       url: "https://picsum.photos/500/500?random=1",
-//       alt: "jacket-1",
-//     },
-//     {
-//       url: "https://picsum.photos/500/500?random=2",
-//       alt: "jacket-2",
-//     },
-//   ],
-// };
-
-// const similarProducts = [
-//   {
-//     _id: 1,
-//     name: "Product 1",
-//     price: 120,
-//     images: [
-//       { url: "https://picsum.photos/500/500?random=2", alt: "jacket-2" },
-//     ],
-//   },
-//   {
-//     _id: 2,
-//     name: "Product 2",
-//     price: 150,
-//     images: [
-//       { url: "https://picsum.photos/500/500?random=3", alt: "jacket-3" },
-//     ],
-//   },
-//   {
-//     _id: 3,
-//     name: "Product 3",
-//     price: 180,
-//     images: [
-//       { url: "https://picsum.photos/500/500?random=4", alt: "jacket-4" },
-//     ],
-//   },
-//   {
-//     _id: 4,
-//     name: "Product 4",
-//     price: 200,
-//     images: [
-//       { url: "https://picsum.photos/500/500?random=5", alt: "jacket-5" },
-//     ],
-//   },
-// ];
-
 const ProductDetails = ({ productId }) => {
   const [imgurl, setImgurl] = useState("");
   const [selectedColor, setSelectedColor] = useState();

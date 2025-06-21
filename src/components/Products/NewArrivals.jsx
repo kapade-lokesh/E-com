@@ -19,7 +19,7 @@ const NewArrivals = () => {
         const response = await axios.get(
           `${import.meta.env.VITE_BACKEND_URL}products/getnewarrivals`
         );
-        setArrivals(response.data.products);
+        setArrivals(response.data.data?.products);
       } catch (error) {
         console.error("Error fetching arrivals:", error);
       }

@@ -60,6 +60,7 @@ export const fetchSimilerProducts = createAsyncThunk(
         import.meta.env.VITE_BACKEND_URL
       }products/getsimilerproducts/${id}?limit=8`
     );
+
     return response.data;
   }
 );
@@ -114,31 +115,35 @@ const productSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchProductsByFilter.pending, (state, action) => {
-        (state.loading = true), (state.error = null);
+        state.loading = true;
+        state.error = null;
       })
       .addCase(fetchProductsByFilter.fulfilled, (state, action) => {
-        (state.loading = false),
-          (state.products = Array.isArray(action.payload.products)
-            ? action.payload.products
-            : []);
+        state.loading = false;
+        state.products = Array.isArray(action.payload?.data?.products)
+          ? action.payload?.data?.products
+          : [];
       })
       .addCase(fetchProductsByFilter.rejected, (state, action) => {
-        (state.loading = false), (state.error = action.payload);
+        state.loading = false;
+        state.error = action.payload;
       })
 
       .addCase(fetchProductDetails.pending, (state, action) => {
-        (state.loading = true), (state.error = null);
+        state.loading = true;
+        state.error = null;
       })
       .addCase(fetchProductDetails.fulfilled, (state, action) => {
-        console.log("callig api");
         state.loading = false;
-        state.selectedProducts = action.payload.product;
+        state.selectedProducts = action.payload?.data?.product;
       })
       .addCase(fetchProductDetails.rejected, (state, action) => {
-        (state.loading = false), (state.error = action.payload.message);
+        state.loading = false;
+        state.error = action.payload.message;
       })
       .addCase(updateProduct.pending, (state, action) => {
-        (state.loading = true), (state.error = null);
+        state.loading = true;
+        state.error = null;
       })
       .addCase(updateProduct.fulfilled, (state, action) => {
         state.loading = false;
@@ -152,18 +157,20 @@ const productSlice = createSlice({
         }
       })
       .addCase(updateProduct.rejected, (state, action) => {
-        (state.loading = false), (state.error = action.payload.message);
+        state.loading = false;
+        state.error = action.payload.message;
       })
       .addCase(fetchSimilerProducts.pending, (state, action) => {
-        (state.loading = true), (state.error = null);
+        state.loading = true;
+        state.error = null;
       })
       .addCase(fetchSimilerProducts.fulfilled, (state, action) => {
         state.loading = false;
-
-        state.similarProducts = action.payload.similerProducts;
+        state.similarProducts = action.payload?.data?.similerProducts;
       })
       .addCase(fetchSimilerProducts.rejected, (state, action) => {
-        (state.loading = false), (state.error = action.payload.message);
+        state.loading = false;
+        state.error = action.payload.message;
       });
   },
 });

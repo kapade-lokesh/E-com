@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-console.log("calling cart slice");
-
 //helper function
 const loadCartFromStorage = () => {
   const storedCart = localStorage.getItem("cart")
@@ -12,11 +10,6 @@ const loadCartFromStorage = () => {
 };
 
 const getCartItemCount = () => {
-  console.log("calling count items reducer");
-  console.log(
-    "cart",
-    JSON.parse(localStorage.getItem("cart"))?.products?.length
-  );
   return JSON.parse(localStorage.getItem("cart"))
     ? JSON.parse(localStorage.getItem("cart")).products.length
     : 0;
@@ -93,6 +86,7 @@ export const removeFromCart = createAsyncThunk(
         `${import.meta.env.VITE_BACKEND_URL}cart/deleteCart`,
         { data: { userId, guestId, productId, size, quantity, color } }
       );
+
       return response.data;
     } catch (error) {
       rejectWithValue(error.response.message);
@@ -115,7 +109,7 @@ export const mergCart = createAsyncThunk(
         }
       );
       console.log(response.data);
-      return response.data;
+      // return response.data;
     } catch (error) {
       console.log(error);
       rejectWithValue(error.response.message);
@@ -160,14 +154,14 @@ const carSlice = createSlice({
       })
       .addCase(addToCart.fulfilled, (state, action) => {
         state.loading = false;
-        state.cart = action.payload.newcart;
+        state.cart = action.payload?.data?.cart;
         console.log(state.itemsCount);
         state.itemsCount = state.cart?.products?.length || 0;
-        saveCartToStorage(action.payload.newcart);
+        saveCartToStorage(action.payload?.data?.cart);
         getCartItemCount();
       })
       .addCase(addToCart.rejected, (state, action) => {
-        state.loading = true;
+        state.loading = false;
         state.error = action.payload.message;
       })
       .addCase(updateCartItemQuantity.pending, (state, action) => {
@@ -177,10 +171,10 @@ const carSlice = createSlice({
       .addCase(updateCartItemQuantity.fulfilled, (state, action) => {
         console.log("update calling");
         state.loading = false;
-        state.cart = action.payload;
+        state.cart = action.payload?.data?.updatedCart;
         console.log("update cart", state.cart);
         state.itemsCount = state.cart.products.length;
-        saveCartToStorage(action.payload);
+        saveCartToStorage(action.payload?.data?.updatedCart);
         getCartItemCount();
       })
       .addCase(updateCartItemQuantity.rejected, (state, action) => {
@@ -194,10 +188,10 @@ const carSlice = createSlice({
       .addCase(removeFromCart.fulfilled, (state, action) => {
         console.log("calling remove Cart");
         state.loading = false;
-        state.cart = action.payload.cart;
+        state.cart = action.payload?.data?.deletedCart;
         console.log(state.cart);
         state.itemsCount = state.cart.products.length || 0;
-        saveCartToStorage(action.payload.cart);
+        saveCartToStorage(action.payload?.data?.deletedCart);
       })
       .addCase(removeFromCart.rejected, (state, action) => {
         state.loading = true;
@@ -209,14 +203,13 @@ const carSlice = createSlice({
       })
       .addCase(mergCart.fulfilled, (state, action) => {
         state.loading = false;
-        state.cart = action.payload;
-        state.itemsCount = action.payload.products?.length || 0;
+        state.cart = action.payload?.data?.cart;
+        state.itemsCount = state.cart.products.length || 0;
         saveCartToStorage(action.payload);
       })
       .addCase(mergCart.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
-        // Restore cart from localStorage to prevent data loss
+        state.error = action.payload?.error;
         state.cart = loadCartFromStorage();
         state.itemsCount = getCartItemCount();
       }),
