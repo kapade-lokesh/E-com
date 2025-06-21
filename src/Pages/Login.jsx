@@ -17,7 +17,8 @@ const Login = () => {
 
   const redirect = new URLSearchParams(location.search).get("redirect") || "/";
   const ischeckoutRedirect = redirect.includes("checkout");
-  console.log(user);
+  console.log("ischecked", ischeckoutRedirect);
+  console.log(cart);
   useEffect(() => {
     if (user) {
       if (cart?.products.length > 0 && guestId) {

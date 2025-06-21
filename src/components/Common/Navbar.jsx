@@ -25,10 +25,10 @@ const Navbar = () => {
     <>
       <div className="container mx-auto  px-3 py-3 flex  justify-between items-center">
         {/* Logo */}
-        <div className="text-xl text-black">
+        <Link to="/" className="text-xl text-black">
           <span className="text-indigo-500 text-2xl">E</span>-
           <span className="text-2xl">com</span>
-        </div>
+        </Link>
 
         {/* Menus */}
         <div className="space-x-5 hidden md:flex lg:flex ">

@@ -32,9 +32,11 @@ const checkoutSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createChekout.pending, (state, action) => {
-        (state.loading = true), (state.error = null);
+        state.loading = true;
+        state.error = null;
       })
       .addCase(createChekout.fulfilled, (state, action) => {
+        console.log(action.payload);
         state.loading = false;
         state.checkout = action.payload;
       })

@@ -26,7 +26,7 @@ export const loginUser = createAsyncThunk(
       );
       console.log(response.user);
       localStorage.setItem("user", JSON.stringify(response.data.user));
-      localStorage.setItem("authToken", JSON.stringify(response.data.token));
+      localStorage.setItem("authToken", response.data.token);
       return response.data.user;
     } catch (error) {
       console.log(error);
@@ -46,10 +46,7 @@ export const registerUser = createAsyncThunk(
       );
       console.log(response.data.user);
       localStorage.setItem("user", JSON.stringify(response.data.user));
-      localStorage.setItem(
-        "authToken",
-        JSON.stringify(response.data.token) || ""
-      );
+      localStorage.setItem("authToken", response.data.token || "");
       return response.data.user;
     } catch (error) {
       console.log(error);
@@ -81,13 +78,13 @@ const authSlice = createSlice({
     builder
       .addCase(loginUser.pending, (state, action) => {
         state.loading = true;
-        state.error = false;
+        state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         console.log("user login ", action.payload);
         state.loading = false;
         state.user = action.payload;
-        state.error = action.payload;
+        state.error = null;
       })
       .addCase(loginUser.rejected, (state, action) => {
         console.log(action.payload);

@@ -39,14 +39,16 @@ const Checkout = () => {
   const { cart, loading, error } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
 
+  useEffect(() => {
+    if (!cart || !cart.products || cart.products.length === 0) {
+      navigate("/");
+    }
+  },[cart,navigate]);
 
-  useEffect(()=>{
-    if(!cart || !cart.products){}
-  })
 
   const handleCheckOut = (e) => {
     e.preventDefault();
-    setCheckoutId(123);
+    
   };
 
   const handlePaymentSuccess = (details) => {
